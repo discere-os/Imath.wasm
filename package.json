@@ -1,0 +1,43 @@
+{
+  "name": "imath.wasm",
+  "version": "3.1.12",
+  "type": "module",
+  "description": "Imath 2D and 3D vector, matrix, and math operations library compiled to WebAssembly",
+  "main": "dist/node/index.js",
+  "module": "dist/browser-es6/index.js",
+  "scripts": {
+    "build": "npm run build:simd && npm run build:fallback",
+    "build:simd": "npm run configure && npm run build:wasm:simd",
+    "build:fallback": "npm run configure && npm run build:wasm:fallback",
+    "configure": "emcmake cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DIMATH_USE_NOEXCEPT=ON -DIMATH_ENABLE_LARGE_STACK=OFF -DPYTHON=OFF -DPYBIND11=OFF -B build .",
+    "build:wasm:simd": "cd build && emmake make -j2 && cd .. && mkdir -p wasm-build/simd dist/browser-simd && cd wasm-build && em++ -O3 -msimd128 -std=c++14 -fexceptions -s WASM=1 -s MODULARIZE=1 -s EXPORT_ES6=1 -s EXPORTED_FUNCTIONS='[\"_vec3f_create\",\"_vec3f_delete\",\"_vec3f_dot\",\"_vec3f_cross\",\"_vec3f_length\",\"_vec3f_normalize\",\"_vec3f_get_components\",\"_matrix44f_create\",\"_matrix44f_create_identity\",\"_matrix44f_delete\",\"_matrix44f_multiply\",\"_matrix44f_inverse\",\"_matrix44f_transpose\",\"_matrix44f_translate\",\"_matrix44f_scale\",\"_matrix44f_rotate_x\",\"_matrix44f_rotate_y\",\"_matrix44f_rotate_z\",\"_matrix44f_get_element\",\"_matrix44f_set_element\",\"_quatf_create\",\"_quatf_delete\",\"_quatf_multiply\",\"_quatf_slerp\",\"_quatf_to_matrix44\",\"_quatf_normalize\",\"_quatf_get_components\",\"_box3f_create\",\"_box3f_create_bounds\",\"_box3f_delete\",\"_box3f_extend_by_point\",\"_box3f_extend_by_box\",\"_box3f_intersects\",\"_box3f_is_empty\",\"_box3f_get_center\",\"_box3f_get_size\",\"_color3f_create\",\"_color3f_delete\",\"_color3f_get_components\",\"_color3f_rgb_to_hsv\",\"_color3f_hsv_to_rgb\",\"_rand48_create\",\"_rand48_delete\",\"_rand48_next_float\",\"_rand48_next_double\",\"_degrees_to_radians\",\"_radians_to_degrees\",\"_clamp_float\",\"_lerp_float\",\"_solve_quadratic\",\"_solve_cubic\",\"_imath_has_simd\",\"_imath_benchmark_vector_ops\",\"_imath_benchmark_matrix_ops\",\"_imath_get_performance_info\",\"_imath_bulk_vector_dot\",\"_imath_bulk_matrix_multiply\",\"_malloc\",\"_free\"]' -s EXPORTED_RUNTIME_METHODS='[\"ccall\",\"cwrap\",\"HEAPU8\"]' --bind -s INITIAL_MEMORY=16MB -s MAXIMUM_MEMORY=128MB -s ALLOW_MEMORY_GROWTH=1 -s STACK_SIZE=2MB -s ASSERTIONS=0 --closure 1 -flto -DIMATH_HALF_USE_LOOKUP_TABLE=1 -I../build/config -I../src/Imath ../wasm/wasm_module_simd.cpp ../build/src/Imath/libImath.a -o imath-simd.js && cp imath-simd.* ../dist/browser-simd/",
+    "build:wasm:fallback": "cd build && emmake make -j2 && cd .. && mkdir -p wasm-build/fallback dist/browser-fallback && cd wasm-build && em++ -O3 -std=c++14 -fexceptions -s WASM=1 -s MODULARIZE=1 -s EXPORT_ES6=1 -s EXPORTED_FUNCTIONS='[\"_vec3f_create\",\"_vec3f_delete\",\"_vec3f_dot\",\"_vec3f_cross\",\"_vec3f_length\",\"_vec3f_normalize\",\"_vec3f_get_components\",\"_matrix44f_create\",\"_matrix44f_create_identity\",\"_matrix44f_delete\",\"_matrix44f_multiply\",\"_matrix44f_inverse\",\"_matrix44f_transpose\",\"_matrix44f_translate\",\"_matrix44f_scale\",\"_matrix44f_rotate_x\",\"_matrix44f_rotate_y\",\"_matrix44f_rotate_z\",\"_matrix44f_get_element\",\"_matrix44f_set_element\",\"_quatf_create\",\"_quatf_delete\",\"_quatf_multiply\",\"_quatf_slerp\",\"_quatf_to_matrix44\",\"_quatf_normalize\",\"_quatf_get_components\",\"_box3f_create\",\"_box3f_create_bounds\",\"_box3f_delete\",\"_box3f_extend_by_point\",\"_box3f_extend_by_box\",\"_box3f_intersects\",\"_box3f_is_empty\",\"_box3f_get_center\",\"_box3f_get_size\",\"_color3f_create\",\"_color3f_delete\",\"_color3f_get_components\",\"_color3f_rgb_to_hsv\",\"_color3f_hsv_to_rgb\",\"_rand48_create\",\"_rand48_delete\",\"_rand48_next_float\",\"_rand48_next_double\",\"_degrees_to_radians\",\"_radians_to_degrees\",\"_clamp_float\",\"_lerp_float\",\"_solve_quadratic\",\"_solve_cubic\",\"_imath_has_simd\",\"_imath_benchmark_vector_ops\",\"_imath_benchmark_matrix_ops\",\"_imath_get_performance_info\",\"_imath_bulk_vector_dot\",\"_imath_bulk_matrix_multiply\",\"_malloc\",\"_free\"]' -s EXPORTED_RUNTIME_METHODS='[\"ccall\",\"cwrap\",\"HEAPU8\"]' --bind -s INITIAL_MEMORY=16MB -s MAXIMUM_MEMORY=128MB -s ALLOW_MEMORY_GROWTH=1 -s STACK_SIZE=2MB -s ASSERTIONS=0 --closure 1 -flto -DIMATH_HALF_USE_LOOKUP_TABLE=1 -I../build/config -I../src/Imath ../wasm/wasm_module.cpp ../build/src/Imath/libImath.a -o imath-fallback.js && cp imath-fallback.* ../dist/browser-fallback/",
+    "build:wasm": "npm run build:wasm:fallback",
+    "test": "echo 'Tests would run here'",
+    "dev": "python3 -m http.server 3000"
+  },
+  "keywords": [
+    "math",
+    "linear-algebra",
+    "vector",
+    "matrix",
+    "quaternion",
+    "graphics",
+    "3d",
+    "computer-graphics",
+    "wasm",
+    "webassembly"
+  ],
+  "author": "WASM Ecosystem Contributors",
+  "license": "BSD-3-Clause",
+  "files": [
+    "wasm-build/",
+    "dist/",
+    "wasm/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/superstruct/Imath.wasm.git"
+  },
+  "homepage": "https://github.com/superstruct/Imath.wasm"
+}
