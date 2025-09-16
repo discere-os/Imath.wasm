@@ -8,6 +8,8 @@ _install/
 .DS_Store
 # WASM build artifacts
 dist/
+install/
+build-dual*/
 build-wasm*/
 *.wasm
 *.js.mem
@@ -15,6 +17,7 @@ build-wasm*/
 *.js.temp
 *.wast
 *.wat
+deno.lock
 
 # Emscripten cache and tools
 emsdk/
