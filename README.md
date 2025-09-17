@@ -1,12 +1,15 @@
+# @discere-os/imath.wasm
+
+WebAssembly port of Imath - A basic, light-weight, and efficient C++ representation of 2D and 3D vectors and matrices for computer graphics applications.
+
+[![CI/CD](https://github.com/discere-os/discere-nucleus/actions/workflows/imath-wasm-ci.yml/badge.svg)](https://github.com/discere-os/discere-nucleus/actions)
+[![JSR](https://jsr.io/badges/@discere-os/imath.wasm)](https://jsr.io/@discere-os/imath.wasm)
+[![npm version](https://badge.fury.io/js/@discere-os%2Fimath.wasm.svg)](https://badge.fury.io/js/@discere-os%2Fimath.wasm)
+[![License](https://img.shields.io/badge/License-BSD--3--Clause-blue.svg)](LICENSE.md)
+[![Status](https://img.shields.io/badge/status-alpha-orange.svg)](https://github.com/discere-os/discere-nucleus)
+
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 <!-- Copyright (c) Contributors to the OpenEXR Project -->
-
-[![License](https://img.shields.io/github/license/AcademySoftwareFoundation/Imath)](LICENSE.md)
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2799/badge)](https://bestpractices.coreinfrastructure.org/projects/2799)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/AcademySoftwareFoundation/Imath/badge)](https://securityscorecards.dev/viewer/?uri=github.com/AcademySoftwareFoundation/Imath)
-[![Build Status](https://github.com/AcademySoftwareFoundation/Imath/workflows/CI/badge.svg)](https://github.com/AcademySoftwareFoundation/Imath/actions?query=workflow%3ACI)
-[![Analysis Status](https://github.com/AcademySoftwareFoundation/Imath/workflows/Analysis/badge.svg)](https://github.com/AcademySoftwareFoundation/Imath/actions?query=workflow%3AAnalysis)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=AcademySoftwareFoundation_Imath&metric=alert_status)](https://sonarcloud.io/dashboard?id=AcademySoftwareFoundation_Imath)
 
 # Imath
 
